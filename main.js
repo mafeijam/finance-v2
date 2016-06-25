@@ -91,14 +91,8 @@ $('#add-btn').click(function(){
 })
 
 $('#add-code').keydown(function(e){
-   var code = $(this).val()
-   if (e.keyCode == 13 && code.trim()) {
-      $('#table-loader').addClass('active')
-      $('#add-btn').addClass('loading')
-      $.get('api.php', {action: 'add', code: code}).done(function(d){
-         dt.ajax.reload()
-         $('#add-code').val('')
-      })
+   if (e.keyCode == 13 && $(this).val().trim()) {
+      $('#add-btn').click()
    }
 })
 
