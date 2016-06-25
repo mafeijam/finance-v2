@@ -12,13 +12,7 @@ table {
    color: #FCFAF2;
 }
 
-.ui.table thead th:nth-child(1),
-.ui.table thead th:nth-child(2),
-.ui.table thead th:nth-child(3),
-.ui.table thead th:nth-child(6),
-.ui.table thead th:nth-child(15),
-.ui.table thead th:nth-child(16),
-.ui.table thead th:nth-child(18) {
+.ui.table thead th.sort {
    cursor: pointer;
 }
 
