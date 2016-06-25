@@ -1,7 +1,3 @@
-$.getJSON('api.php', {action: 'favorite'}).done(function(f){
-   localStorage.setItem('f', f)
-})
-
 var favorite = '<i class="favorite fa fa-star fa-lg" aria-hidden="true" style="color: #F7D94C;"><span style="font-size: 0;">0</span></i>'
 var notFavorite = '<i class="favorite fa fa-star-o fa-lg" aria-hidden="true""><span style="font-size: 0;">1</span></i>'
 
@@ -9,9 +5,9 @@ var dt = $('#dt').DataTable({
    ajax: {
       url: 'api.php?action=all',
       dataSrc: function(data) {
-         var f = localStorage.getItem('f').split(',')
+         var f = data.f
 
-         $.each(data, function(k, v){
+         $.each(data.all, function(k, v){
             var id = v.symbol.replace(/^0+|.hk/g, '')
             v.favorite = $.inArray(id, f) != '-1' ? favorite : notFavorite
             v.mktCap = v.mktCap.replace(/B$/, '').replace(/^N\/A$/, '-')
@@ -21,7 +17,8 @@ var dt = $('#dt').DataTable({
             v.action = '<i class="refresh fa fa-refresh fa-lg" aria-hidden="true" style="margin-right: 10px;"></i>' +
                        '<i class="remove fa fa-minus-circle fa-lg" aria-hidden="true"></i>'
          })
-         return data
+
+         return data.all
       }
    },
    columns: [
@@ -60,6 +57,9 @@ var dt = $('#dt').DataTable({
 
       var id = data.symbol.replace(/^0+|.hk/g, '')
       $(row).attr('data-id', id)
+      if ($(row).find('i').hasClass('fa-star')) {
+         $(row).css('background', '#FFFFFB')
+      }
    },
    drawCallback: function(s) {
       setTimeout(function(){
@@ -76,6 +76,28 @@ var dt = $('#dt').DataTable({
    initComplete: function(s, j) {
       init()
       setLastUpdate()
+      var col = JSON.parse(localStorage.getItem('col')) || []
+      $('#edit-column-modal').find('.checkbox').each(function(k, v){
+         $(v).checkbox({
+            onChecked: function(){
+               dt.column($(this).data('col')).visible(false)
+               if ($.inArray($(this).val(), col) == '-1') {
+                  col.push($(this).val())
+                  localStorage.setItem('col', JSON.stringify(col))
+               }
+            },
+            onUnchecked: function(){
+               dt.column($(this).data('col')).visible(true)
+               var i = col.indexOf($(this).val())
+               col.splice(i, 1)
+               localStorage.setItem('col', JSON.stringify(col))
+            }
+         })
+
+         if ($.inArray($(v).children('input').val(), col) != '-1') {
+            $(v).checkbox('check')
+         }
+      })
    }
 })
 
@@ -138,13 +160,6 @@ $('#dt tbody').on('click', '.refresh', function(){
 
          setColumnsAnimate(tr, effect)
          updatePrice(d, price, change, percent, td)
-
-         /*setTimeout(function(){
-            setColor(d.change, td.eq(4), td.eq(5))
-            price.data(d.price)
-            change.data(d.change)
-            percent.data(d.percent)
-         }, 150)*/
       }
    })
    $(this).off('click')
@@ -179,18 +194,13 @@ $('#refresh-all').click(function(){
          var old = price.data()
          var id = tr.data('id')
 
-         if (old != d[id].price) {
-            var effect = old > d[id].price ? 'down' : 'up'
+         var da = d.all
+
+         if (old != da[id].price) {
+            var effect = old > da[id].price ? 'down' : 'up'
 
             setColumnsAnimate(tr, effect)
-            updatePrice(d[id], price, change, percent, td)
-
-            /*setTimeout(function(){
-               setColor(d[id].change, td.eq(4), td.eq(5))
-               price.data(d[id].price)
-               change.data(d[id].change)
-               percent.data(d[id].percent)
-            }, 150)*/
+            updatePrice(da[id], price, change, percent, td)
          }
 
          if (k+1 == $('#dt tbody tr').length) {
@@ -205,7 +215,7 @@ $('#edit-list').click(function(){
    var list = $('#edit-list-modal')
    var text = list.find('textarea')
    $.getJSON('api.php', {action: 'list'}).done(function(d){
-      text.val(String(d).replace(/,/g, "\n"))
+      text.val(String(d.l).replace(/,/g, "\n"))
    })
 
    list
@@ -220,6 +230,41 @@ $('#edit-list').click(function(){
       }
    })
    .modal('show')
+})
+
+$('#setting').click(function(){
+   var col = JSON.parse(localStorage.getItem('col')) || []
+
+   $('#edit-column-modal')
+   .modal({
+      inverted: true,
+      blurring: true,
+      autofocus: false
+   })
+   .modal('show')
+
+   $('#edit-column-modal').find('.checkbox').each(function(k, v){
+      $(v).checkbox({
+         onChecked: function(){
+            dt.column($(this).data('col')).visible(false)
+
+            if ($.inArray($(this).val(), col) == '-1') {
+               col.push($(this).val())
+               localStorage.setItem('col', JSON.stringify(col))
+            }
+         },
+         onUnchecked: function(){
+            dt.column($(this).data('col')).visible(true)
+            var i = col.indexOf($(this).val())
+            col.splice(i, 1)
+            localStorage.setItem('col', JSON.stringify(col))
+         }
+      })
+
+      if ($.inArray($(v).children('input').val(), col) != '-1') {
+         $(v).checkbox('check')
+      }
+   })
 })
 
 function init() {

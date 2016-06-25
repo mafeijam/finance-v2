@@ -7,8 +7,9 @@ table {
    width: 100%;
 }
 
-tr {
-   background: #FCFAF2;
+.ui.table thead th {
+   background: #81C7D4;
+   color: #FCFAF2;
 }
 
 .container-xl {

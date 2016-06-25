@@ -8,10 +8,11 @@ asort($code);
 $favorite = file('favorite.txt', FILE_IGNORE_NEW_LINES);
 asort($favorite);
 $data = [];
+$data['f'] = array_values($favorite);
 
 switch ($_GET['action']) {
    case 'all':
-      $data = $y->get($code);
+      $data['all'] = $y->get($code);
       break;
 
    case 'add':
@@ -32,7 +33,7 @@ switch ($_GET['action']) {
 
    case 'refresh':
       $y->setFields(['price', 'change', 'percent'])->setInfo('l1c1p2');
-      $data = isset($_GET['id']) ? $y->get($_GET['id'])[0] : array_combine($code, $y->get($code));
+      $data['all'] = isset($_GET['id']) ? $y->get($_GET['id'])[0] : array_combine($code, $y->get($code));
       break;
 
    case 'favorite':
@@ -47,11 +48,11 @@ switch ($_GET['action']) {
          file_put_contents('favorite.txt', implode(PHP_EOL, $favorite));
       }
 
-      $data = $favorite;
+      $data['f'] = array_values($favorite);
       break;
 
    case 'list':
-      $data = $code;
+      $data['l'] = array_values($code);
       break;
 
    case 'edit-list':

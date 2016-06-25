@@ -24,6 +24,68 @@
       </div>
    </div>
 
+   <div id="edit-column-modal" class="ui modal">
+      <div class="header">hide column</div>
+      <div class="content ui divided very relaxed large list">
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="name" data-col="2">
+            <label>name</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="open" data-col="6">
+            <label>open</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="close" data-col="7">
+            <label>close</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="low" data-col="8">
+            <label>low</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="high" data-col="9">
+            <label>high</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="52wlow" data-col="10">
+            <label>52w low</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="52whigh" data-col="11">
+            <label>52w high</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="50avg" data-col="12">
+            <label>50d avg</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="200avg" data-col="13">
+            <label>200d avg</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="mkt" data-col="17">
+            <label>Mkt cap. (B)</label>
+         </div>
+
+         <div class="ui toggle checkbox item">
+            <input type="checkbox" value="chart" data-col="18">
+            <label>chart</label>
+         </div>
+
+      </div>
+   </div>
+
    <div class="ui container-xl">
 
       <div class="ui form">
@@ -49,6 +111,12 @@
             </div>
 
             <div class="field">
+               <div id="setting" class="ui olive button">
+                  <i class="fa fa-sliders" aria-hidden="true" style="margin-right: 5px"></i> setting
+               </div>
+            </div>
+
+            <div class="field">
                <a href="https://github.com/mafeijam/finance-v2" target="_blank">
                   <div class="ui red button">
                      <i class="fa fa-code" aria-hidden="true" style="margin-right: 5px"></i> get code
@@ -59,7 +127,7 @@
          </div>
       </div>
 
-      <table id="dt" class="ui red table">
+      <table id="dt" class="ui table">
          <div id="table-loader" class="ui large loader"></div>
          <thead>
             <tr>
@@ -80,7 +148,7 @@
                <th>PE</th>
                <th>yield</th>
                <th>divdend</th>
-               <th>Market cap. (B)</th>
+               <th>Mkt cap (B)</th>
                <th>chart</th>
                <th>action</th>
             </tr>
