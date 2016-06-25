@@ -133,11 +133,12 @@ $('#dt tbody').on('click', '.refresh', function(){
    }).bind(this)
 
    $.getJSON('api.php', {action: 'refresh', id: tr.data('id')}).done(function(d){
-      if (old != d.price) {
-         var effect = old > d.price ? 'down' : 'up'
+      var da = d.all
+      if (old != da.price) {
+         var effect = old > da.price ? 'down' : 'up'
 
          setColumnsAnimate(tr, effect)
-         updatePrice(d, price, change, percent, td)
+         updatePrice(da, price, change, percent, td)
       }
    })
    $(this).off('click')
