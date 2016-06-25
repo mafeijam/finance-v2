@@ -1,6 +1,6 @@
 body {
    padding-top: 30px;
-   background: #FFFFFB;
+   background: #FCFAF2;
 }
 
 table {
@@ -10,6 +10,16 @@ table {
 .ui.table thead th {
    background: #81C7D4;
    color: #FCFAF2;
+}
+
+.ui.table thead th:nth-child(1),
+.ui.table thead th:nth-child(2),
+.ui.table thead th:nth-child(3),
+.ui.table thead th:nth-child(6),
+.ui.table thead th:nth-child(15),
+.ui.table thead th:nth-child(16),
+.ui.table thead th:nth-child(18) {
+   cursor: pointer;
 }
 
 .container-xl {
@@ -65,13 +75,13 @@ table {
 }
 
 ::-webkit-scrollbar-track {
-   background-color: #FFFFFB;
+   background-color: #FCFAF2;
 }
 
 ::-webkit-scrollbar {
    width: 6px;
    height: 10px;
-   background-color: #FFFFFB;
+   background-color: #FCFAF2;
 }
 
 ::-webkit-scrollbar-thumb {

@@ -5,11 +5,9 @@ var dt = $('#dt').DataTable({
    ajax: {
       url: 'api.php?action=all',
       dataSrc: function(data) {
-         var f = data.f
-
          $.each(data.all, function(k, v){
             var id = v.symbol.replace(/^0+|.hk/g, '')
-            v.favorite = $.inArray(id, f) != '-1' ? favorite : notFavorite
+            v.favorite = $.inArray(id, data.f) != '-1' ? favorite : notFavorite
             v.mktCap = v.mktCap.replace(/B$/, '').replace(/^N\/A$/, '-')
             v.PE = v.PE.replace(/^N\/A$/, '-')
             v.yield = v.yield.replace(/^N\/A$/, '-')
@@ -64,11 +62,11 @@ var dt = $('#dt').DataTable({
    drawCallback: function(s) {
       setTimeout(function(){
          $('#add-btn').removeClass('loading')
-      }, 500)
+      }, 300)
 
       setTimeout(function(){
         $('#table-loader').removeClass('active')
-      }, 500)
+      }, 300)
 
       init()
       setLastUpdate()
@@ -77,27 +75,7 @@ var dt = $('#dt').DataTable({
       init()
       setLastUpdate()
       var col = JSON.parse(localStorage.getItem('col')) || []
-      $('#edit-column-modal').find('.checkbox').each(function(k, v){
-         $(v).checkbox({
-            onChecked: function(){
-               dt.column($(this).data('col')).visible(false)
-               if ($.inArray($(this).val(), col) == '-1') {
-                  col.push($(this).val())
-                  localStorage.setItem('col', JSON.stringify(col))
-               }
-            },
-            onUnchecked: function(){
-               dt.column($(this).data('col')).visible(true)
-               var i = col.indexOf($(this).val())
-               col.splice(i, 1)
-               localStorage.setItem('col', JSON.stringify(col))
-            }
-         })
-
-         if ($.inArray($(v).children('input').val(), col) != '-1') {
-            $(v).checkbox('check')
-         }
-      })
+      hideColumn(col)
    }
 })
 
@@ -243,28 +221,8 @@ $('#setting').click(function(){
    })
    .modal('show')
 
-   $('#edit-column-modal').find('.checkbox').each(function(k, v){
-      $(v).checkbox({
-         onChecked: function(){
-            dt.column($(this).data('col')).visible(false)
+   hideColumn(col)
 
-            if ($.inArray($(this).val(), col) == '-1') {
-               col.push($(this).val())
-               localStorage.setItem('col', JSON.stringify(col))
-            }
-         },
-         onUnchecked: function(){
-            dt.column($(this).data('col')).visible(true)
-            var i = col.indexOf($(this).val())
-            col.splice(i, 1)
-            localStorage.setItem('col', JSON.stringify(col))
-         }
-      })
-
-      if ($.inArray($(v).children('input').val(), col) != '-1') {
-         $(v).checkbox('check')
-      }
-   })
 })
 
 function init() {
@@ -328,5 +286,30 @@ function setColumnsAnimate(tr, effect) {
    tr.addClass(effect)
    tr.on('animationend', function(){
       tr.removeClass('down up')
+   })
+}
+
+function hideColumn(col) {
+   $('#edit-column-modal').find('.checkbox').each(function(k, v){
+      $(v).checkbox({
+         onChecked: function(){
+            dt.column($(this).data('col')).visible(false)
+
+            if ($.inArray($(this).val(), col) == '-1') {
+               col.push($(this).val())
+               localStorage.setItem('col', JSON.stringify(col))
+            }
+         },
+         onUnchecked: function(){
+            dt.column($(this).data('col')).visible(true)
+            var i = col.indexOf($(this).val())
+            col.splice(i, 1)
+            localStorage.setItem('col', JSON.stringify(col))
+         }
+      })
+
+      if ($.inArray($(v).children('input').val(), col) != '-1') {
+         $(v).checkbox('check')
+      }
    })
 }

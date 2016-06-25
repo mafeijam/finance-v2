@@ -27,7 +27,6 @@
    <div id="edit-column-modal" class="ui modal">
       <div class="header">hide column</div>
       <div class="content ui divided very relaxed large list">
-
          <div class="ui toggle checkbox item">
             <input type="checkbox" value="name" data-col="2">
             <label>name</label>
@@ -82,7 +81,6 @@
             <input type="checkbox" value="chart" data-col="18">
             <label>chart</label>
          </div>
-
       </div>
    </div>
 
