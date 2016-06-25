@@ -161,9 +161,9 @@
    </div>
 
    <script src="//code.jquery.com/jquery-1.12.3.js"></script>
+   <script src="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.js"></script>
    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.semanticui.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.js"></script>
    <script src="main.js"></script>
 </body>
 </html>
