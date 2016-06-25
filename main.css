@@ -1,0 +1,107 @@
+body {
+   padding-top: 30px;
+   background: #FFFFFB;
+}
+
+table {
+   width: 100%;
+}
+
+tr {
+   background: #FCFAF2;
+}
+
+.container-xl {
+   max-width: 1700px;
+   margin: 0 auto;
+}
+
+.price {
+   color: #005CAF;
+   font-weight: 700;
+}
+
+.yield {
+   color: #FFB11B;
+   font-weight: 700;
+}
+
+.remove {
+   color: #CB4042;
+   cursor: pointer;
+}
+
+.refresh, .favorite  {
+   cursor: pointer;
+}
+
+.overlay {
+   width: 100vw;
+   height: 100vh;
+   z-index: 99;
+   background: rgba(0,0,0,0.7);
+   position: fixed;
+   top: 0;
+   left: 0;
+   align-items: center;
+   display: none;
+}
+
+.chart {
+   width: 800px;
+   margin: auto;
+   padding: 20px;
+   background: #fff;
+   border-radius: 10px;
+   position: relative;
+   top: 50%;
+   transform: translate(0, -70%);
+}
+
+.chart-s {
+   width: 75px;
+   cursor: zoom-in;
+}
+
+::-webkit-scrollbar-track {
+   background-color: #FFFFFB;
+}
+
+::-webkit-scrollbar {
+   width: 6px;
+   height: 10px;
+   background-color: #FFFFFB;
+}
+
+::-webkit-scrollbar-thumb {
+   background-color: #C73E3A;
+}
+
+.up {
+   animation: up 1.3s ease-out;
+}
+
+.down {
+   animation: down 1.3s ease-out;
+}
+
+.rotate {
+   animation: rotate 0.7s;
+}
+
+@keyframes up {
+   0% {background: #FFFFFB;}
+   50% {background: #A8D8B9;}
+   100% {background: #FFFFFB;}
+}
+
+@keyframes down {
+   0% {background: #FFFFFB;}
+   50% {background: #FEDFE1;}
+   100% {background: #FFFFFB;}
+}
+
+@keyframes rotate {
+   from {transform: rotate(0deg);}
+   to {transform: rotate(360deg);}
+}
