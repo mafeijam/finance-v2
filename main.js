@@ -44,7 +44,7 @@ var dt = $('#dt').DataTable({
       {data: 'dividend', searchable: false, orderable: false},
       {data: 'mktCap', className: 'sort', searchable: false, type: 'num'},
       {data: 'chart', searchable: false, orderable: false, width: '75px'},
-      {data: 'action', searchable: false, orderable: false, width: '90px'},
+      {data: 'action', className: 'action', searchable: false, orderable: false, width: '90px'},
    ],
    //lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'ALL']],
    //pageLength: -1,
