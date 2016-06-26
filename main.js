@@ -85,7 +85,7 @@ var dt = $('#dt').DataTable({
       var tableSize = localStorage.getItem('tableSize') || 'd'
 
       if (tableSize != 'd') {
-         tableSize == 'm' ? $('#table-size-m').click() : $('#table-size-s').click()
+         tableSize == 'm' ? resize(1350, 500) : resize(1000, 500)
       }
    }
 })
@@ -254,27 +254,25 @@ $('#setting').click(function(){
 
 var speed = 1000
 
-$('#table-size-d').click(function(){
+function resize(s1, speed) {
    $('.container-xl').animate({
-      width: '1700px'
+      width: s1 + 'px'
    }, speed)
 
    $('table').animate({
-      width: '1694px'
+      width: s1 - 6 + 'px'
    }, speed)
+}
+
+$('#table-size-d').click(function(){
+   resize(1700, speed)
 
    localStorage.setItem('tableSize', 'd')
    $('.one-col.checkbox').checkbox('uncheck')
 })
 
 $('#table-size-m').click(function(){
-   $('.container-xl').animate({
-      width: '1350px'
-   }, speed)
-
-   $('table').animate({
-      width: '1344px'
-   }, speed)
+   resize(1350, speed)
 
    localStorage.setItem('tableSize', 'm')
    $('.one-col.checkbox').each(function(k, v){
@@ -288,13 +286,7 @@ $('#table-size-m').click(function(){
 })
 
 $('#table-size-s').click(function(){
-   $('.container-xl').animate({
-      width: '1000px'
-   }, speed)
-
-   $('table').animate({
-      width: '994px'
-   }, speed)
+   resize(1000, speed)
 
    localStorage.setItem('tableSize', 's')
    $('.all-col.checkbox').checkbox('check')
