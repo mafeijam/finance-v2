@@ -84,12 +84,12 @@ var dt = $('#dt').DataTable({
       hideColumn(col)
       var tableSize = localStorage.getItem('tableSize') || 'd'
 
-      if (tableSize = 'm') {
+      if (tableSize == 'm') {
          resize(1350, 500)
-         $('table').css('font-size', '100%')
-      } else if (tableSize = 's') {
+         $('table').css('font-size', '115%')
+      } else if (tableSize == 's') {
          resize(1000, 500)
-         $('table').css('font-size', '150%')
+         $('table').css('font-size', '135%')
       }
    }
 })
@@ -293,7 +293,7 @@ $('#table-size-m').click(function(){
          $(v).checkbox('uncheck')
       }
    })
-   $('table').css('font-size', '100%')
+   $('table').css('font-size', '115%')
 })
 
 $('#table-size-s').click(function(){
