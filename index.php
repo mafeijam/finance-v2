@@ -25,77 +25,132 @@
    </div>
 
    <div id="edit-column-modal" class="ui modal">
-      <div class="header">hide column</div>
-      <div class="content ui divided very relaxed large list">
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="name" data-col="2">
-            <label>name</label>
-         </div>
 
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="open" data-col="6">
-            <label>open</label>
-         </div>
-
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="close" data-col="7">
-            <label>close</label>
-         </div>
-
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="low" data-col="8">
-            <label>low</label>
-         </div>
-
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="high" data-col="9">
-            <label>high</label>
-         </div>
-
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="52wlow" data-col="10">
-            <label>52w low</label>
-         </div>
-
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="52whigh" data-col="11">
-            <label>52w high</label>
-         </div>
-
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="50avg" data-col="12">
-            <label>50d avg</label>
-         </div>
-
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="200avg" data-col="13">
-            <label>200d avg</label>
-         </div>
-
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="mkt" data-col="17">
-            <label>Mkt cap. (B)</label>
-         </div>
-
-         <div class="ui toggle checkbox item">
-            <input type="checkbox" value="chart" data-col="18">
-            <label>chart</label>
+      <div class="header">
+         hide column
+         <div class="ui toggle all-col checkbox item" style="float: right">
+            <input type="checkbox">
+            <label>hide All</label>
          </div>
       </div>
-   </div>
+
+      <div class="ui centered grid">
+
+         <div class="seven wide column">
+
+            <div class="content ui divided very relaxed large list">
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="open" data-col="6">
+                  <label>open</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="close" data-col="7">
+                  <label>close</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="low" data-col="8">
+                  <label>low</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="high" data-col="9">
+                  <label>high</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="52wlow" data-col="10">
+                  <label>52w low</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="52whigh" data-col="11">
+                  <label>52w high</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="50avg" data-col="12">
+                  <label>50d avg</label>
+               </div>
+
+            </div>
+
+         </div> <!-- end column 1 -->
+
+         <div class="seven wide column">
+
+            <div class="content ui divided very relaxed large list">
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="200avg" data-col="13">
+                  <label>200d avg</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="PE" data-col="14">
+                  <label>PE</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="yield" data-col="15">
+                  <label>yield</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="dividend" data-col="16">
+                  <label>dividend</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="mkt" data-col="17">
+                  <label>Mkt cap. (B)</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="chart" data-col="18">
+                  <label>chart</label>
+               </div>
+
+               <div class="ui toggle one-col checkbox item">
+                  <input type="checkbox" value="action" data-col="19">
+                  <label>action</label>
+               </div>
+
+            </div>
+
+         </div> <!-- end column 2 -->
+
+      </div> <!-- end grid -->
+
+      <div class="header">
+         table size
+      </div>
+      <div class="content">
+         <div id="table-size-d" class="ui red button">default</div>
+         <div id="table-size-m" class="ui yellow button">medium</div>
+         <div id="table-size-s" class="ui green button">small</div>
+      </div>
+
+   </div> <!-- end edit-column-modal -->
 
    <div class="ui container-xl">
 
       <div class="ui form">
+
          <div class="fields">
+
             <div class="field">
                <input id="add-code" type="text">
             </div>
+
             <div class="field">
                <div id="add-btn" class="ui blue button">
                   <i class="fa fa-plus" aria-hidden="true" style="margin-right: 5px"></i> add
                </div>
             </div>
+
             <div class="field">
                <div id="refresh-all" class="ui green button">
                   <i class="fa fa-refresh" aria-hidden="true" style="margin-right: 5px"></i> refresh
@@ -123,11 +178,11 @@
             </div>
 
          </div>
-      </div>
+      </div> <!-- end meun -->
 
       <div id="hsi">
          Hang Seng Indexes:
-         <a class="price" style="font-weight: 700; font-size: 130%"></a>
+         <a class="price" style="font-weight: 700; font-size: 130%; margin: 0 7px 0 7px;"></a>
          <a class="change"></a>
          <a class="percent"></a>
       </div>
@@ -161,7 +216,7 @@
       </table>
       <div id="last-update"></div>
 
-   </div>
+   </div> <!-- end container -->
 
    <div class="overlay">
       <img class="chart">

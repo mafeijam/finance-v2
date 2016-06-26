@@ -18,7 +18,7 @@ var dt = $('#dt').DataTable({
             v.chart = '<img class="chart-s" src="https://chart.finance.yahoo.com/z?s='+v.symbol+'&t=my&z=l">'
             v.action = '<i class="refresh fa fa-refresh fa-lg" aria-hidden="true" style="margin-right: 10px;"></i>' +
                        '<i class="remove fa fa-minus-circle fa-lg" aria-hidden="true" style="margin-right: 10px;"></i>' +
-                       `<i class="show-more fa fa-info fa-lg" aria-hidden="true" data-html="${info}"></i>`
+                       `<i class="show-more fa fa-info-circle fa-lg" aria-hidden="true" data-html="${info}"></i>`
          })
 
          return data.all
@@ -52,7 +52,7 @@ var dt = $('#dt').DataTable({
    lengthChange: false,
    info: false,
    scrollY: '685px',
-   scrollCollapse: true,
+   //scrollCollapse: true,
    createdRow: function(row, data, index) {
       var change = $(row).children().eq(4)
       var percent = change.next()
@@ -82,6 +82,11 @@ var dt = $('#dt').DataTable({
       setLastUpdate()
       var col = JSON.parse(localStorage.getItem('col')) || []
       hideColumn(col)
+      var tableSize = localStorage.getItem('tableSize') || 'd'
+
+      if (tableSize != 'd') {
+         tableSize == 'm' ? $('#table-size-m').click() : $('#table-size-s').click()
+      }
    }
 })
 
@@ -105,8 +110,7 @@ $('#add-code').keydown(function(e){
 $('#dt tbody').on('click', '.favorite', function(){
    var id = $(this).parents('tr').data('id')
    $('#table-loader').addClass('active')
-   $.getJSON('api.php', {action: 'favorite', id: id}).done(function(f){
-      localStorage.setItem('f', f)
+   $.get('api.php', {action: 'favorite', id: id}).done(function(f){
       dt.ajax.reload()
    })
 
@@ -152,12 +156,21 @@ $('#dt tbody').on('click', '.remove', function(){
    })
 })
 
+getHSI()
+
 var date = new Date()
 
 if ($.inArray(date.getDay(), [1, 2, 3, 4, 5]) != '-1') {
-   setInterval(function(){
+   var i = setInterval(function(){
       $('#refresh-all').click()
    }, 300000)
+
+   var date = new Date()
+   var hour = date.getHours()
+
+   if (hour > 16) {
+      clearInterval(i)
+   }
 }
 
 $('#refresh-all').click(function(){
@@ -204,7 +217,7 @@ $('#edit-list').click(function(){
       blurring: true,
       onApprove: function() {
          $('#table-loader').addClass('active')
-         $.get('api.php', {action: 'edit-list', list: text.val().replace(/\n/g, ",")}).done(function(){
+         $.get('api.php', {action: 'edit-list', list: text.val().replace(/\n/g, ',')}).done(function(){
             dt.ajax.reload()
          })
       }
@@ -215,6 +228,19 @@ $('#edit-list').click(function(){
 $('#setting').click(function(){
    var col = JSON.parse(localStorage.getItem('col')) || []
 
+   $('.all-col.checkbox').checkbox({
+      onChecked: function() {
+         $('.one-col.checkbox').checkbox('check')
+      },
+      onUnchecked: function() {
+         $('.one-col.checkbox').checkbox('uncheck')
+      }
+   })
+
+   if (col.length == 14) {
+      $('.all-col.checkbox').checkbox('set checked')
+   }
+
    $('#edit-column-modal')
    .modal({
       inverted: true,
@@ -224,7 +250,44 @@ $('#setting').click(function(){
    .modal('show')
 
    hideColumn(col)
+})
 
+var speed = 1000
+
+$('#table-size-d').click(function(){
+   $('.container-xl').animate({
+      width: '1700px'
+   }, speed)
+
+   $('table').animate({
+      width: '1694px'
+   }, speed)
+
+   localStorage.setItem('tableSize', 'd')
+})
+
+$('#table-size-m').click(function(){
+   $('.container-xl').animate({
+      width: '1350px'
+   }, speed)
+
+   $('table').animate({
+      width: '1344px'
+   }, speed)
+
+   localStorage.setItem('tableSize', 'm')
+})
+
+$('#table-size-s').click(function(){
+   $('.container-xl').animate({
+      width: '1000px'
+   }, speed)
+
+   $('table').animate({
+      width: '994px'
+   }, speed)
+
+   localStorage.setItem('tableSize', 's')
 })
 
 function init() {
@@ -257,8 +320,6 @@ function init() {
       $('.overlay').fadeIn().children('img').attr('src', $(this).attr('src')).css('display', 'flex')
    })
 }
-
-getHSI()
 
 function getHSI(refresh) {
    $.getJSON('api.php', {action: 'hsi'}).done(function(d){
@@ -323,7 +384,7 @@ function setColumnsAnimate(tr, effect) {
 }
 
 function hideColumn(col) {
-   $('#edit-column-modal').find('.checkbox').each(function(k, v){
+   $('#edit-column-modal').find('.one-col.checkbox').each(function(k, v){
       $(v).checkbox({
          onChecked: function(){
             dt.column($(this).data('col')).visible(false)
@@ -338,6 +399,13 @@ function hideColumn(col) {
             var i = col.indexOf($(this).val())
             col.splice(i, 1)
             localStorage.setItem('col', JSON.stringify(col))
+         },
+         onChange: function() {
+            if (col.length == 14) {
+               $('.all-col.checkbox').checkbox('set checked')
+            } else {
+               $('.all-col.checkbox').checkbox('set unchecked')
+            }
          }
       })
 
