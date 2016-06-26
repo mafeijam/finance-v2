@@ -301,7 +301,7 @@ $('#table-size-s').click(function(){
 
    localStorage.setItem('tableSize', 's')
    $('.all-col.checkbox').checkbox('check')
-   $('table').css('font-size', '150%')
+   $('table').css('font-size', '135%')
 })
 
 function init() {
