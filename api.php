@@ -3,6 +3,7 @@
 require 'Yahoo.php';
 
 $y = new YahooFinanceHK;
+
 $code = file('stock.txt', FILE_IGNORE_NEW_LINES);
 asort($code);
 $favorite = file('favorite.txt', FILE_IGNORE_NEW_LINES);
@@ -59,6 +60,10 @@ switch ($_GET['action']) {
       $list = explode(',', $_GET['list']);
       asort($list);
       file_put_contents('stock.txt', implode(PHP_EOL, $list));
+      break;
+
+   case 'hsi':
+      $data = $y->getHSI();
       break;
 }
 

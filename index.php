@@ -109,7 +109,7 @@
             </div>
 
             <div class="field">
-               <div id="setting" class="ui olive button">
+               <div id="setting" class="ui orange button">
                   <i class="fa fa-sliders" aria-hidden="true" style="margin-right: 5px"></i> setting
                </div>
             </div>
@@ -123,6 +123,13 @@
             </div>
 
          </div>
+      </div>
+
+      <div id="hsi">
+         Hang Seng Indexes:
+         <a class="price" style="font-weight: 700; font-size: 130%"></a>
+         <a class="change"></a>
+         <a class="percent"></a>
       </div>
 
       <table id="dt" class="ui table">
@@ -161,7 +168,7 @@
    </div>
 
    <script src="//code.jquery.com/jquery-1.12.3.js"></script>
-   <script src="https://cdn.jsdelivr.net/semantic-ui/2.1.8/semantic.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.min.js"></script>
    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.semanticui.min.js"></script>
    <script src="main.js"></script>

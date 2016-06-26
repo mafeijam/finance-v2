@@ -7,13 +7,18 @@ var dt = $('#dt').DataTable({
       dataSrc: function(data) {
          $.each(data.all, function(k, v){
             var id = v.symbol.replace(/^0+|.hk/g, '')
+            var title = `<div style='text-align: center;'><strong>info</strong></div>`
+            var info = `${title}<a class='popup-link' href='https://hk.finance.yahoo.com/q?s=${id}&ql=1' target='_blank'>Yahoo</a> | ` +
+                       `<a class='popup-link' href='https://www.google.com.hk/finance?q=${v.symbol}' target='_blank'>Google</a>`
+
             v.favorite = $.inArray(id, data.f) != '-1' ? favorite : notFavorite
             v.mktCap = v.mktCap.replace(/B$/, '').replace(/^N\/A$/, '-')
             v.PE = v.PE.replace(/^N\/A$/, '-')
             v.yield = v.yield.replace(/^N\/A$/, '-')
             v.chart = '<img class="chart-s" src="https://chart.finance.yahoo.com/z?s='+v.symbol+'&t=my&z=l">'
             v.action = '<i class="refresh fa fa-refresh fa-lg" aria-hidden="true" style="margin-right: 10px;"></i>' +
-                       '<i class="remove fa fa-minus-circle fa-lg" aria-hidden="true"></i>'
+                       '<i class="remove fa fa-minus-circle fa-lg" aria-hidden="true" style="margin-right: 10px;"></i>' +
+                       `<i class="show-more fa fa-info fa-lg" aria-hidden="true" data-html="${info}"></i>`
          })
 
          return data.all
@@ -39,12 +44,13 @@ var dt = $('#dt').DataTable({
       {data: 'dividend', searchable: false, orderable: false},
       {data: 'mktCap', className: 'sort', searchable: false, type: 'num'},
       {data: 'chart', searchable: false, orderable: false, width: '75px'},
-      {data: 'action', searchable: false, orderable: false},
+      {data: 'action', searchable: false, orderable: false, width: '90px'},
    ],
    //lengthMenu: [[10, 50, 100, -1], [10, 50, 100, 'ALL']],
    //pageLength: -1,
    paging: false,
    lengthChange: false,
+   info: false,
    scrollY: '685px',
    scrollCollapse: true,
    createdRow: function(row, data, index) {
@@ -151,6 +157,7 @@ var date = new Date()
 if ($.inArray(date.getDay(), [1, 2, 3, 4, 5]) != '-1') {
    setInterval(function(){
       $('#refresh-all').click()
+      getHSI()
    }, 300000)
 }
 
@@ -233,12 +240,43 @@ function init() {
       variation: 'inverted'
    })
 
+   $('.show-more').popup({
+      position: 'top center',
+      variation: 'inverted',
+      hoverable: true,
+      delay: {
+         hide: 500
+      }
+   })
+
    $('.overlay').click(function(){
       $(this).fadeOut()
    })
 
    $('img').click(function(){
       $('.overlay').fadeIn().children('img').attr('src', $(this).attr('src')).css('display', 'flex')
+   })
+}
+
+getHSI()
+
+function getHSI(refresh) {
+   $.getJSON('api.php', {action: 'hsi'}).done(function(d){
+      var color = '#828282'
+      var arrow = '<i class="fa fa-arrow-up" aria-hidden="true"></i>'
+      if (d[1] > 0) {
+         color = '#227D51'
+      } else if (d[1] < 0) {
+         color = '#CB1B45'
+         arrow = '<i class="fa fa-arrow-down" aria-hidden="true"></i>'
+      }
+
+      $('#hsi').find('.price').html(arrow + ' ' +d[0])
+
+      var change = $('#hsi').find('.change')
+
+      change.css('color', color).text(' ('+d[1]+' | ')
+      change.next().css('color', color).text(d[2]+')')
    })
 }
 

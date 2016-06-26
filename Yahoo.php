@@ -49,6 +49,13 @@ class YahooFinanceHK
       return $r;
    }
 
+   public function getHSI()
+   {
+      $api = $this->api.'^HSI&f=l1c1p2';
+      $csv = array_map('str_getcsv', file($api));
+      return $csv[0];
+   }
+
    protected function parseCode($code)
    {
       $code = is_string($code) ? explode(' ', $code) : $code;

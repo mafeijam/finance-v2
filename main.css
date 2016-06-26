@@ -7,6 +7,15 @@ table {
    width: 100%;
 }
 
+#hsi {
+   margin-top: 10px;
+}
+
+#last-update {
+   text-align: right;
+   padding-right: 6px;
+}
+
 .ui.table thead th {
    background: #81C7D4;
    color: #FCFAF2;
@@ -14,6 +23,15 @@ table {
 
 .ui.table thead th.sort {
    cursor: pointer;
+}
+
+.popup-link {
+   color: #FFFFFB;
+   transition: .3s
+}
+
+.popup-link:hover {
+   color: #bbb;
 }
 
 .container-xl {
@@ -36,7 +54,7 @@ table {
    cursor: pointer;
 }
 
-.refresh, .favorite  {
+.refresh, .favorite, .show-more  {
    cursor: pointer;
 }
 
