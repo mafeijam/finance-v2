@@ -267,8 +267,13 @@ function resize(s1, speed) {
 $('#table-size-d').click(function(){
    resize(1700, speed)
 
+   setTimeout(function(){
+      dt.column(17).visible(false).visible(true)
+   }, 500)
+
    localStorage.setItem('tableSize', 'd')
    $('.one-col.checkbox').checkbox('uncheck')
+
 })
 
 $('#table-size-m').click(function(){
