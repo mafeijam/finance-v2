@@ -157,7 +157,6 @@ var date = new Date()
 if ($.inArray(date.getDay(), [1, 2, 3, 4, 5]) != '-1') {
    setInterval(function(){
       $('#refresh-all').click()
-      getHSI()
    }, 300000)
 }
 
