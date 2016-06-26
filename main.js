@@ -164,6 +164,7 @@ if ($.inArray(date.getDay(), [1, 2, 3, 4, 5]) != '-1') {
 $('#refresh-all').click(function(){
    $(this).addClass('loading')
    var that = $(this)
+   getHSI()
    $.getJSON('api.php', {action: 'refresh'}).done(function(d){
       $('#dt tbody tr').each(function(k, v){
          var tr = $(v)
