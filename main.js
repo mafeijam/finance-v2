@@ -84,8 +84,12 @@ var dt = $('#dt').DataTable({
       hideColumn(col)
       var tableSize = localStorage.getItem('tableSize') || 'd'
 
-      if (tableSize != 'd') {
-         tableSize == 'm' ? resize(1350, 500) : resize(1000, 500)
+      if (tableSize = 'm') {
+         resize(1350, 500)
+         $('table').css('font-size', '100%')
+      } else if (tableSize = 's') {
+         resize(1000, 500)
+         $('table').css('font-size', '150%')
       }
    }
 })
@@ -273,6 +277,7 @@ $('#table-size-d').click(function(){
 
    localStorage.setItem('tableSize', 'd')
    $('.one-col.checkbox').checkbox('uncheck')
+   $('table').css('font-size', '100%')
 
 })
 
@@ -288,6 +293,7 @@ $('#table-size-m').click(function(){
          $(v).checkbox('uncheck')
       }
    })
+   $('table').css('font-size', '100%')
 })
 
 $('#table-size-s').click(function(){
@@ -295,6 +301,7 @@ $('#table-size-s').click(function(){
 
    localStorage.setItem('tableSize', 's')
    $('.all-col.checkbox').checkbox('check')
+   $('table').css('font-size', '150%')
 })
 
 function init() {
