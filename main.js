@@ -264,6 +264,7 @@ $('#table-size-d').click(function(){
    }, speed)
 
    localStorage.setItem('tableSize', 'd')
+   $('.one-col.checkbox').checkbox('uncheck')
 })
 
 $('#table-size-m').click(function(){
@@ -276,6 +277,14 @@ $('#table-size-m').click(function(){
    }, speed)
 
    localStorage.setItem('tableSize', 'm')
+   $('.one-col.checkbox').each(function(k, v){
+      var close = [0, 1, 2, 3, 6, 7, 10, 11, 12, 13]
+      if ($.inArray(k, close) != '-1') {
+         $(v).checkbox('check')
+      } else {
+         $(v).checkbox('uncheck')
+      }
+   })
 })
 
 $('#table-size-s').click(function(){
@@ -288,6 +297,7 @@ $('#table-size-s').click(function(){
    }, speed)
 
    localStorage.setItem('tableSize', 's')
+   $('.all-col.checkbox').checkbox('check')
 })
 
 function init() {
